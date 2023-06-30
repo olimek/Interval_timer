@@ -122,27 +122,23 @@ class Form(QObject):
         os.system("cls")
 
     def Run(self, PARms, DELms, RDELms, SET):
-        if (DELms <= 0):
+        if DELms <= 0:
             DELms = RDELms = 3
 
         seed(1)
         flag = True
-        self.Rdelms = randint(DELms*10, RDELms*10)*100
-        self.tt = randint(DELms*10, RDELms*10)*100
+        self.Rdelms = randint(DELms * 10, RDELms * 10) * 100
+        self.tt = randint(DELms * 10, RDELms * 10) * 100
         self.Frame.setStyleSheet("background-color: rgba(255, 20, 71,150);")  # RED
         ct = self.current_milli_time()
         cct = self.current_milli_time()
-      
+
         self.set = SET
-        
-
-
 
         while (self.set >= 0) and (self.STATEMENT == "run"):
-
             self.clear()
             print("SET  " + str(self.set))
-            print(randint(DELms*10, RDELms*10)*100)
+            print(randint(DELms * 10, RDELms * 10) * 100)
 
             if flag:
                 print("Break")
@@ -152,42 +148,37 @@ class Form(QObject):
             while True and (self.STATEMENT == "run"):
                 app.processEvents()
 
-                if (self.current_milli_time() - cct >= 1):
+                if self.current_milli_time() - cct >= 1:
                     cct = self.current_milli_time()
                     self.tt -= 1
 
-
-                if (self.current_milli_time() - ct >= (self.Rdelms)):
+                if self.current_milli_time() - ct >= (self.Rdelms):
                     ct = self.current_milli_time()
                     break
 
-
-
-            sound = pygame.mixer.Sound(file='time.wav')
+            sound = pygame.mixer.Sound(file="time.wav")
             sound.play(loops=0)
 
             if flag:
-                self.Rdelms = PARms*1000
-                self.tt = PARms*1000
+                self.Rdelms = PARms * 1000
+                self.tt = PARms * 1000
                 self.Frame.setStyleSheet("background-color: rgba(80, 255, 102,150);")  # Green
                 if self.set == 0:
                     self.set -= 1
                 flag = False
             else:
-                if self.set >0:
-                    self.Rdelms = randint(DELms*10, RDELms*10)*100
-                    self.tt = randint(DELms*10, RDELms*10)*100
+                if self.set > 0:
+                    self.Rdelms = randint(DELms * 10, RDELms * 10) * 100
+                    self.tt = randint(DELms * 10, RDELms * 10) * 100
                     self.Frame.setStyleSheet("background-color: rgba(255, 20, 71,150);")  # RED
                     if self.set > 0:
                         self.set -= 1
                     flag = True
 
-            
-            if self.set < 0 :
-                self.STATEMENT="stop"
-                self.LCD.display('00:00.000')
+            if self.set < 0:
+                self.STATEMENT = "stop"
+                self.LCD.display("00:00.000")
                 self.Frame.setStyleSheet("background-color: rgba(0, 0, 0,0);")
-
 
 
 if __name__ == "__main__":
